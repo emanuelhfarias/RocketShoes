@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import 'react-native-gesture-handler';
 
+import { navigationRef } from './RootNavigation';
 import ActionBar from './components/ActionBar';
 import Main from './pages/Main';
 import Cart from './pages/Cart';
@@ -13,7 +14,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <StatusBar barStyle="light-content" backgroundColor="#141419" />
       <ActionBar />
       <Stack.Navigator headerMode="none">
