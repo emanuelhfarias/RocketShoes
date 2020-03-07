@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export const Container = styled.View`
   display: flex;
@@ -10,13 +11,12 @@ export const Container = styled.View`
 `;
 
 export const Logo = styled.Image`
-  margin-left: 10px;
+  margin-left: 15px;
   height: 25px;
   width: 210px;
 `;
 
-export const Carrinho = styled.Image`
-  width: 48px;
-  height: 48px;
-  background: red;
+export const Carrinho = styled(Icon)`
+  color: #fff;
+  margin-right: 15px;
 `;

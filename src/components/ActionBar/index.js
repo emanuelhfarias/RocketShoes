@@ -7,7 +7,7 @@ export default function ActionBar() {
   return (
     <Container>
       <Logo source={ImgLogo} />
-      <Carrinho />
+      <Carrinho name="shopping-basket" size={28} />
     </Container>
   );
 }
