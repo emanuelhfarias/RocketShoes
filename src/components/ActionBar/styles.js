@@ -12,7 +12,7 @@ export const Container = styled.View`
 
 export const Logo = styled.Image`
   margin-left: 15px;
-  height: 25px;
+  height: 27px;
   width: 210px;
 `;
 
