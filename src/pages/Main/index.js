@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import api from '../../services/api';
+
 import {
   Container,
   ShoesList,
@@ -16,30 +18,14 @@ import {
 
 class Main extends Component {
   state = {
-    shoes: [
-      {
-        id: 1,
-        title: 'Tênis de Caminhada Leve Confortável',
-        price: 179.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-      },
-      {
-        id: 2,
-        title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-        price: 139.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-      },
-      {
-        id: 3,
-        title: 'Tênis Adidas Duramo Lite 2.0',
-        price: 219.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg',
-      },
-    ],
+    shoes: [],
   };
+
+  async componentDidMount() {
+    const { shoes } = this.state;
+    const response = await api.get('products');
+    this.setState({ shoes: [...shoes, ...response.data] });
+  }
 
   renderItem = ({ item, index }) => {
     return (
