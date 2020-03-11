@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import api from '../../services/api';
 
@@ -27,13 +28,22 @@ class Main extends Component {
     this.setState({ shoes: [...shoes, ...response.data] });
   }
 
+  handleAddProduct = product => {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: 'ADD_TO_CART',
+      product,
+    });
+  };
+
   renderItem = ({ item, index }) => {
     return (
       <Product key={index}>
         <ProductImage source={{ uri: item.image }} />
         <Title>{item.title}</Title>
         <Price>R$ {item.price}</Price>
-        <BuyButton>
+        <BuyButton onPress={() => this.handleAddProduct(item)}>
           <ButtonInfo>
             <AddIcon />
             <ItemCounter>0</ItemCounter>
@@ -62,4 +72,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default connect()(Main);
