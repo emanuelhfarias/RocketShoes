@@ -51,7 +51,7 @@ class Cart extends Component {
             <ButtonIncrement>
               <IconIncrement />
             </ButtonIncrement>
-            <TextInput value="1" />
+            <TextInput value={String(product.amount)} keyboardType="numeric" />
             <ButtonDecrement>
               <IconDecrement />
             </ButtonDecrement>
