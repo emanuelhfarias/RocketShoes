@@ -31,6 +31,14 @@ import {
 } from './styles';
 
 class Cart extends Component {
+  removeProduct = id => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'REMOVE_FROM_CART',
+      id,
+    });
+  };
+
   renderProduct = product => {
     return (
       <Product key={product.id}>
@@ -43,7 +51,7 @@ class Cart extends Component {
             </ProductPrice>
           </ProductInfo>
           <DeleteButton>
-            <DeleteButtonIcon />
+            <DeleteButtonIcon onPress={() => this.removeProduct(product.id)} />
           </DeleteButton>
         </ProductDetails>
         <ProductActions>
