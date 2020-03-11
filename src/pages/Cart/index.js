@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { Text } from 'react-native';
 
@@ -30,27 +31,6 @@ import {
 } from './styles';
 
 class Cart extends Component {
-  state = {
-    products: [
-      {
-        id: 1,
-        title: 'Tênis de Caminhada Leve Confortável',
-        price: 179.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-        amount: 1,
-      },
-      {
-        id: 2,
-        title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-        price: 139.9,
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-        amount: 1,
-      },
-    ],
-  };
-
   renderProduct = product => {
     return (
       <Product key={product.id}>
@@ -83,13 +63,12 @@ class Cart extends Component {
   };
 
   render() {
-    const { products } = this.state;
-
+    const { cart } = this.props;
     return (
       <Container>
         <Carrinho>
           <ProductList>
-            {products.map(product => this.renderProduct(product))}
+            {cart.map(product => this.renderProduct(product))}
           </ProductList>
           <Total>
             <TotalText>TOTAL</TotalText>
@@ -104,4 +83,8 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps)(Cart);
