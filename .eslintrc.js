@@ -31,5 +31,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/state-in-constructor': 'off',
     'no-underscore-dangle': 'off',
+    'no-console': ['error', {allow: ['tron']}],
   },
 };
