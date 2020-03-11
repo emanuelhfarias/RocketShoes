@@ -33,6 +33,16 @@ import {
 } from './styles';
 
 class Cart extends Component {
+  increment = product => {
+    const { updateAmount } = this.props;
+    updateAmount(product.id, product.amount + 1);
+  };
+
+  decrement = product => {
+    const { updateAmount } = this.props;
+    updateAmount(product.id, product.amount - 1);
+  };
+
   renderProduct = product => {
     const { removeFromCart } = this.props;
     return (
@@ -51,13 +61,13 @@ class Cart extends Component {
         </ProductDetails>
         <ProductActions>
           <CounterGroup>
-            <ButtonIncrement>
-              <IconIncrement />
-            </ButtonIncrement>
-            <TextInput value={String(product.amount)} keyboardType="numeric" />
-            <ButtonDecrement>
+            <ButtonDecrement onPress={() => this.decrement(product)}>
               <IconDecrement />
             </ButtonDecrement>
+            <TextInput value={String(product.amount)} keyboardType="numeric" />
+            <ButtonIncrement onPress={() => this.increment(product)}>
+              <IconIncrement />
+            </ButtonIncrement>
           </CounterGroup>
           <SubTotalText>R$ {product.price}</SubTotalText>
         </ProductActions>
