@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { Text } from 'react-native';
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
   Container,
@@ -31,15 +33,8 @@ import {
 } from './styles';
 
 class Cart extends Component {
-  removeProduct = id => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'REMOVE_FROM_CART',
-      id,
-    });
-  };
-
   renderProduct = product => {
+    const { removeFromCart } = this.props;
     return (
       <Product key={product.id}>
         <ProductDetails>
@@ -51,7 +46,7 @@ class Cart extends Component {
             </ProductPrice>
           </ProductInfo>
           <DeleteButton>
-            <DeleteButtonIcon onPress={() => this.removeProduct(product.id)} />
+            <DeleteButtonIcon onPress={() => removeFromCart(product.id)} />
           </DeleteButton>
         </ProductDetails>
         <ProductActions>
@@ -95,4 +90,7 @@ const mapStateToProps = state => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

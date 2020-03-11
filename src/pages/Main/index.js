@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import api from '../../services/api';
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
   Container,
@@ -28,22 +30,14 @@ class Main extends Component {
     this.setState({ shoes: [...shoes, ...response.data] });
   }
 
-  handleAddProduct = product => {
-    const { dispatch } = this.props;
-
-    dispatch({
-      type: 'ADD_TO_CART',
-      product,
-    });
-  };
-
   renderItem = ({ item, index }) => {
+    const { addToCart } = this.props;
     return (
       <Product key={index}>
         <ProductImage source={{ uri: item.image }} />
         <Title>{item.title}</Title>
         <Price>R$ {item.price}</Price>
-        <BuyButton onPress={() => this.handleAddProduct(item)}>
+        <BuyButton onPress={() => addToCart(item)}>
           <ButtonInfo>
             <AddIcon />
             <ItemCounter>0</ItemCounter>
@@ -72,4 +66,7 @@ class Main extends Component {
   }
 }
 
-export default connect()(Main);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Main);
