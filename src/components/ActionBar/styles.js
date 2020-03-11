@@ -19,4 +19,19 @@ export const Logo = styled.Image`
 export const Carrinho = styled(Icon)`
   color: #fff;
   margin-right: 15px;
+  margin-top: -15px;
+`;
+
+export const Counter = styled.View``;
+
+export const TextCounter = styled.Text`
+  text-align: center;
+  padding-top: 1px;
+  color: white;
+  margin-left: 20px;
+  background: #9159c1;
+  width: 22px;
+  height: 22px;
+  border-radius: 12px;
+  z-index: 1;
 `;

@@ -4,7 +4,7 @@ import { TouchableHighlight } from 'react-native';
 import * as RootNavigation from '../../RootNavigation';
 
 import ImgLogo from '../../assets/images/logo.png';
-import { Container, Logo, Carrinho } from './styles';
+import { Container, Logo, Carrinho, Counter, TextCounter } from './styles';
 
 export default function ActionBar() {
   return (
@@ -13,7 +13,10 @@ export default function ActionBar() {
         <Logo source={ImgLogo} />
       </TouchableHighlight>
       <TouchableHighlight onPress={() => RootNavigation.navigate('Cart')}>
-        <Carrinho name="shopping-basket" size={28} />
+        <Counter>
+          <TextCounter>1</TextCounter>
+          <Carrinho name="shopping-basket" size={28} />
+        </Counter>
       </TouchableHighlight>
     </Container>
   );
