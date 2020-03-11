@@ -10,3 +10,10 @@ react-native run-android
 adb reverse tcp:3333 tcp:3333
 json-server server.json -p 3333 --watch --host 0.0.0.0
 ```
+
+### Debugging with Reactotron
+Open Reactotron, then run:
+```sh
+adb reverse tcp:9090 tcp:9090
+```
+Reload your app.
