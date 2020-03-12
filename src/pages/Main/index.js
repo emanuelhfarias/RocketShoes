@@ -31,7 +31,8 @@ class Main extends Component {
   }
 
   renderItem = ({ item, index }) => {
-    const { addToCart } = this.props;
+    const { addToCart, amount } = this.props;
+
     return (
       <Product key={index}>
         <ProductImage source={{ uri: item.image }} />
@@ -40,7 +41,7 @@ class Main extends Component {
         <BuyButton onPress={() => addToCart(item)}>
           <ButtonInfo>
             <AddIcon />
-            <ItemCounter>0</ItemCounter>
+            <ItemCounter>{amount[item.id] || 0}</ItemCounter>
           </ButtonInfo>
           <TextButton>ADICIONAR</TextButton>
         </BuyButton>
@@ -50,6 +51,7 @@ class Main extends Component {
 
   render() {
     const { shoes } = this.state;
+
     return (
       <Container>
         <ShoesList
@@ -66,7 +68,14 @@ class Main extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+    return amount;
+  }, {}),
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
