@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { Text } from 'react-native';
 import * as CartActions from '../../store/modules/cart/actions';
 
+import { formatPrice } from '../../util/format';
+
 import {
   Container,
   Carrinho,
@@ -69,14 +71,14 @@ class Cart extends Component {
               <IconIncrement />
             </ButtonIncrement>
           </CounterGroup>
-          <SubTotalText>R$ {product.price}</SubTotalText>
+          <SubTotalText>{product.subtotal}</SubTotalText>
         </ProductActions>
       </Product>
     );
   };
 
   render() {
-    const { cart } = this.props;
+    const { cart, total } = this.props;
     return (
       <Container>
         <Carrinho>
@@ -85,7 +87,7 @@ class Cart extends Component {
           </ProductList>
           <Total>
             <TotalText>TOTAL</TotalText>
-            <TotalPrice>R$ 179,90</TotalPrice>
+            <TotalPrice>{total}</TotalPrice>
           </Total>
           <FinalizarButton>
             <TextFinalizarButton>Finalizar Pedido</TextFinalizarButton>
@@ -97,7 +99,15 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart,
+  cart: state.cart.map(product => ({
+    ...product,
+    subtotal: formatPrice(product.price * product.amount),
+  })),
+  total: formatPrice(
+    state.cart.reduce((total, product) => {
+      return total + product.price * product.amount;
+    }, 0)
+  ),
 });
 
 const mapDispatchToProps = dispatch =>
