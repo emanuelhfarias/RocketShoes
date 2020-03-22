@@ -32,6 +32,7 @@ import {
   ButtonDecrement,
   IconIncrement,
   IconDecrement,
+  CarinhoEmpty,
 } from './styles';
 
 class Cart extends Component {
@@ -81,18 +82,22 @@ class Cart extends Component {
     const { cart, total } = this.props;
     return (
       <Container>
-        <Carrinho>
-          <ProductList>
-            {cart.map(product => this.renderProduct(product))}
-          </ProductList>
-          <Total>
-            <TotalText>TOTAL</TotalText>
-            <TotalPrice>{total}</TotalPrice>
-          </Total>
-          <FinalizarButton>
-            <TextFinalizarButton>Finalizar Pedido</TextFinalizarButton>
-          </FinalizarButton>
-        </Carrinho>
+        {cart.length == 0 ? (
+          <CarinhoEmpty>Nenhum item no carrinho</CarinhoEmpty>
+        ) : (
+          <Carrinho>
+            <ProductList>
+              {cart.map(product => this.renderProduct(product))}
+            </ProductList>
+            <Total>
+              <TotalText>TOTAL</TotalText>
+              <TotalPrice>{total}</TotalPrice>
+            </Total>
+            <FinalizarButton>
+              <TextFinalizarButton>Finalizar Pedido</TextFinalizarButton>
+            </FinalizarButton>
+          </Carrinho>
+        )}
       </Container>
     );
   }

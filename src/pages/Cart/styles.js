@@ -149,3 +149,13 @@ export const IconDecrement = styled(Icon).attrs({
 })`
   padding: 5px;
 `;
+
+export const CarinhoEmpty = styled.Text`
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  background: #fff;
+  width: 90%;
+  border-radius: 4px;
+  padding: 15px;
+`;
