@@ -31,14 +31,14 @@ class Main extends Component {
   }
 
   renderItem = ({ item, index }) => {
-    const { addToCart, amount } = this.props;
+    const { addToCartRequest, amount } = this.props;
 
     return (
       <Product key={index}>
         <ProductImage source={{ uri: item.image }} />
         <Title>{item.title}</Title>
         <Price>R$ {item.price}</Price>
-        <BuyButton onPress={() => addToCart(item)}>
+        <BuyButton onPress={() => addToCartRequest(item.id)}>
           <ButtonInfo>
             <AddIcon />
             <ItemCounter>{amount[item.id] || 0}</ItemCounter>
