@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -19,20 +19,21 @@ import {
   AddIcon,
 } from './styles';
 
-class Main extends Component {
-  state = {
-    shoes: [],
-  };
+function Main({ addToCartRequest, amount }) {
+  const [shoes, setShoes] = useState([]);
 
-  async componentDidMount() {
-    const { shoes } = this.state;
-    const response = await api.get('products');
-    this.setState({ shoes: [...shoes, ...response.data] });
-  }
+  useEffect(() => {
+    async function loadShoes() {
+      const response = await api.get('products');
+      setShoes([...shoes, ...response.data]);
+    }
 
-  renderItem = ({ item, index }) => {
-    const { addToCartRequest, amount } = this.props;
+    loadShoes();
+  }, []);
 
+  const refCarousel = useRef();
+
+  function renderItem({ item, index }) {
     return (
       <Product key={index}>
         <ProductImage source={{ uri: item.image }} />
@@ -47,25 +48,21 @@ class Main extends Component {
         </BuyButton>
       </Product>
     );
-  };
-
-  render() {
-    const { shoes } = this.state;
-
-    return (
-      <Container>
-        <ShoesList
-          ref={c => {
-            this._carousel = c;
-          }}
-          data={shoes}
-          renderItem={this.renderItem}
-          sliderWidth={350}
-          itemWidth={250}
-        />
-      </Container>
-    );
   }
+
+  return (
+    <Container>
+      <ShoesList
+        ref={c => {
+          refCarousel.current = c;
+        }}
+        data={shoes}
+        renderItem={renderItem}
+        sliderWidth={350}
+        itemWidth={250}
+      />
+    </Container>
+  );
 }
 
 const mapStateToProps = state => ({

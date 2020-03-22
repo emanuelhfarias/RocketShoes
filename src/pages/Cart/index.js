@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -35,19 +35,16 @@ import {
   CarinhoEmpty,
 } from './styles';
 
-class Cart extends Component {
-  increment = product => {
-    const { updateAmountRequest } = this.props;
+function Cart({ updateAmountRequest, removeFromCart, cart, total }) {
+  function increment(product) {
     updateAmountRequest(product.id, product.amount + 1);
-  };
+  }
 
-  decrement = product => {
-    const { updateAmountRequest } = this.props;
+  function decrement(product) {
     updateAmountRequest(product.id, product.amount - 1);
-  };
+  }
 
-  renderProduct = product => {
-    const { removeFromCart } = this.props;
+  function renderProduct(product) {
     return (
       <Product key={product.id}>
         <ProductDetails>
@@ -64,11 +61,11 @@ class Cart extends Component {
         </ProductDetails>
         <ProductActions>
           <CounterGroup>
-            <ButtonDecrement onPress={() => this.decrement(product)}>
+            <ButtonDecrement onPress={() => decrement(product)}>
               <IconDecrement />
             </ButtonDecrement>
             <TextInput value={String(product.amount)} keyboardType="numeric" />
-            <ButtonIncrement onPress={() => this.increment(product)}>
+            <ButtonIncrement onPress={() => increment(product)}>
               <IconIncrement />
             </ButtonIncrement>
           </CounterGroup>
@@ -76,31 +73,28 @@ class Cart extends Component {
         </ProductActions>
       </Product>
     );
-  };
-
-  render() {
-    const { cart, total } = this.props;
-    return (
-      <Container>
-        {cart.length == 0 ? (
-          <CarinhoEmpty>Nenhum item no carrinho</CarinhoEmpty>
-        ) : (
-          <Carrinho>
-            <ProductList>
-              {cart.map(product => this.renderProduct(product))}
-            </ProductList>
-            <Total>
-              <TotalText>TOTAL</TotalText>
-              <TotalPrice>{total}</TotalPrice>
-            </Total>
-            <FinalizarButton>
-              <TextFinalizarButton>Finalizar Pedido</TextFinalizarButton>
-            </FinalizarButton>
-          </Carrinho>
-        )}
-      </Container>
-    );
   }
+
+  return (
+    <Container>
+      {cart.length == 0 ? (
+        <CarinhoEmpty>Nenhum item no carrinho</CarinhoEmpty>
+      ) : (
+        <Carrinho>
+          <ProductList>
+            {cart.map(product => renderProduct(product))}
+          </ProductList>
+          <Total>
+            <TotalText>TOTAL</TotalText>
+            <TotalPrice>{total}</TotalPrice>
+          </Total>
+          <FinalizarButton>
+            <TextFinalizarButton>Finalizar Pedido</TextFinalizarButton>
+          </FinalizarButton>
+        </Carrinho>
+      )}
+    </Container>
+  );
 }
 
 const mapStateToProps = state => ({
