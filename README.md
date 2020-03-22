@@ -7,7 +7,7 @@
 </h3>
 
 ## Descrição
-:cart: Desenvolver um e-commerce em React Native para venda de Calçados.
+Desenvolver um e-commerce em React Native para venda de Calçados.
 
 [Link da versão web](https://github.com/emanuelhfarias/bootcamp-gostack-modulo-07)  
 [Link do desafio](https://github.com/Rocketseat/bootcamp-gostack-desafio-07/blob/66c10d7bc6d11c1c14f56ec2136e45aa32f9381d/README.md)  
