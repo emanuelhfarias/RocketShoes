@@ -36,13 +36,13 @@ import {
 
 class Cart extends Component {
   increment = product => {
-    const { updateAmount } = this.props;
-    updateAmount(product.id, product.amount + 1);
+    const { updateAmountRequest } = this.props;
+    updateAmountRequest(product.id, product.amount + 1);
   };
 
   decrement = product => {
-    const { updateAmount } = this.props;
-    updateAmount(product.id, product.amount - 1);
+    const { updateAmountRequest } = this.props;
+    updateAmountRequest(product.id, product.amount - 1);
   };
 
   renderProduct = product => {
