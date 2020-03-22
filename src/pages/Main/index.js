@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import api from '../../services/api';
 import * as CartActions from '../../store/modules/cart/actions';
@@ -19,8 +18,17 @@ import {
   AddIcon,
 } from './styles';
 
-function Main({ addToCartRequest, amount }) {
+export default function Main() {
   const [shoes, setShoes] = useState([]);
+
+  const amount = useSelector(state =>
+    state.cart.reduce((totalAmount, product) => {
+      totalAmount[product.id] = product.amount;
+      return totalAmount;
+    }, {})
+  );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function loadShoes() {
@@ -39,7 +47,9 @@ function Main({ addToCartRequest, amount }) {
         <ProductImage source={{ uri: item.image }} />
         <Title>{item.title}</Title>
         <Price>R$ {item.price}</Price>
-        <BuyButton onPress={() => addToCartRequest(item.id)}>
+        <BuyButton
+          onPress={() => dispatch(CartActions.addToCartRequest(item.id))}
+        >
           <ButtonInfo>
             <AddIcon />
             <ItemCounter>{amount[item.id] || 0}</ItemCounter>
@@ -64,15 +74,3 @@ function Main({ addToCartRequest, amount }) {
     </Container>
   );
 }
-
-const mapStateToProps = state => ({
-  amount: state.cart.reduce((amount, product) => {
-    amount[product.id] = product.amount;
-    return amount;
-  }, {}),
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);

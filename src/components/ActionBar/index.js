@@ -1,13 +1,15 @@
 import React from 'react';
 import { TouchableHighlight } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import * as RootNavigation from '../../RootNavigation';
 
 import ImgLogo from '../../assets/images/logo.png';
 import { Container, Logo, Carrinho, Counter, TextCounter } from './styles';
 
-function ActionBar({ cartSize }) {
+export default function ActionBar() {
+  const cartSize = useSelector(state => state.cart.length);
+
   return (
     <Container>
       <TouchableHighlight onPress={() => RootNavigation.navigate('Home')}>
@@ -22,7 +24,3 @@ function ActionBar({ cartSize }) {
     </Container>
   );
 }
-
-export default connect(state => ({
-  cartSize: state.cart.length,
-}))(ActionBar);
